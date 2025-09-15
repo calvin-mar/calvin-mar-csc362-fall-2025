@@ -8,12 +8,14 @@
 | Parent Table          | movies                            |
 | Alias(es)             |                                   |
 | Specification Type    | [ ] Unique                        |
-|                       | [X] Generic                       |
+|                       | [ ] Generic                       |
 |                       | [ ] Replica                       |
 |                       |                                   |
 | Source Specification  |                                   |
 | Shared By             |  ratings table                    |
-| Description           |  The title of the movie           |
+| Description           |  The title of the movie assigned  |
+|                       |  at the addition of the movie to  |
+|                       |  the system.                      |
 
 
 ## Physical Elements

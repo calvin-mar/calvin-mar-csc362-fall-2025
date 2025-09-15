@@ -13,8 +13,10 @@
 |                       |                                   |
 | Source Specification  |                                   |
 | Shared By             | Ratings Table                     |
-| Description           | This is the primary key for the   |
-|                       |        consumers table            |
+| Description           | A unique number identifying a     |
+|                       | specific consumer assigned at     |
+|                       | the addition of the consumer to   |
+|                       | the system.                       |
 
 
 ## Physical Elements

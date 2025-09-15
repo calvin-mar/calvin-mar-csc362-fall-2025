@@ -8,12 +8,14 @@
 | Parent Table          |  consumer                         |
 | Alias(es)             |                                   |
 | Specification Type    | [ ] Unique                        |
-|                       | [X] Generic                       |
+|                       | [ ] Generic                       |
 |                       | [ ] Replica                       |
 |                       |                                   |
 | Source Specification  |                                   |
 | Shared By             | None                              |
-| Description           | Address of consumer               |
+| Description           | The address of the consumer,      |
+|                       | specifically the street number    |
+|                       | and street name.                  |
 
 
 ## Physical Elements

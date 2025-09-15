@@ -13,8 +13,8 @@
 |                       |                                   |
 | Source Specification  |                                   |
 | Shared By             |   consumers table                 |
-| Description           |  This is the foreign key in the   |
-|                       |   ratings table from consumers    |
+| Description           |  A unique number identifying a    |
+|                       |  consumer with a specific rating  |
 
 
 
