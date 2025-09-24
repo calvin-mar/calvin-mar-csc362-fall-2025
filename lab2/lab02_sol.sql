@@ -119,3 +119,24 @@ SELECT consumer_first_name, consumer_last_name, movie_title, rating_star_number
     FROM movies
         NATURAL JOIN ratings
         NATURAL JOIN consumers;
+
+/* Alternative Worse Table to movies, genres, and movie_genres
+
+--Creation of Table
+CREATE TABLE movies(
+    movie_id INT NOT NULL AUTO_INCREMENT,
+    movie_title CHAR(200) NOT NULL,
+    movie_release_date DATETIME,
+    movie_genres CHAR(512),
+    PRIMARY KEY(movie_id)
+);
+SHOW CREATE TABLE movies;
+
+
+--Insertion of Data into Table
+INSERT INTO movies(movie_title, movie_release_date, movie_genres) VALUES
+    ("The Hunt for Red October", '1990/03/02', 'Action, Adventure, Thriller'),
+    ("Lady Bird", '2017/12/01', 'Comedy, Drama'),
+    ("Inception", '2010/08/16', 'Action, Adventure, Science Fiction'),
+    ("Monty Python and the Holy Grail", '1975/04/03', 'Comedy');
+*/
