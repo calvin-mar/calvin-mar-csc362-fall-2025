@@ -98,12 +98,12 @@ BEGIN
     DECLARE current_trial_exists INT;
     SELECT COUNT(*) INTO current_trial_exists
     FROM rug_trials
-    WHERE customer_id = NEW.customer_id AND rug_number = NEW.rug_number AND rug_trial_actual_return IS NOT NULL AND rug_trial_date < NEW.rug_sale_date;
+    WHERE customer_id = NEW.customer_id AND rug_number = NEW.rug_number AND rug_trial_actual_return IS NULL AND rug_trial_date < NEW.rug_sale_date;
 
     IF current_trial_exists > 0 THEN
         UPDATE rug_trials
         SET rug_trial_purchased = TRUE
-        WHERE customer_id = NEW.customer_id AND rug_number = NEW.rug_number AND rug_trial_actual_return IS NOT NULL AND rug_trial_date < NEW.rug_sale_date;
+        WHERE customer_id = NEW.customer_id AND rug_number = NEW.rug_number AND rug_trial_actual_return IS NULL AND rug_trial_date < NEW.rug_sale_date;
     END IF;
 END//
 
@@ -161,9 +161,11 @@ FROM rug_trials
     INNER JOIN customers USING(customer_id)
     INNER JOIN rugs USING(rug_number);
 
-SELECT * FROM customers;
+--SELECT * FROM customers;
 --DELETE FROM customers WHERE customer_id = 2;
-UPDATE customers SET customer_id=1 WHERE customer_id = 2;
+--UPDATE customers SET customer_id=1 WHERE customer_id = 2;
+INSERT INTO rug_sales(customer_id, rug_number, rug_sale_date, rug_sale_price, rug_net_on_sale) VALUES
+    (2, 2, '2025/09/14', 990.00, 356.00);
 
 SELECT customer_first_name, customer_last_name, rug_sale_date,rug_sale_price, rug_origin, rug_material
 FROM rug_sales
