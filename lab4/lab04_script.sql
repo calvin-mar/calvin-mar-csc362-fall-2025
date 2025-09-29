@@ -45,7 +45,7 @@ CREATE TABLE customers(
 --Create the rug_trials table, references both the rugs and customers table
 CREATE TABLE rug_trials(
     rug_number INT NOT NULL,
-    customer_id INT NOT NULL DEFAULT 1,
+    customer_id INT NOT NULL,
     rug_trial_date DATETIME NOT NULL,
     rug_trial_expected_return DATETIME,
     rug_trial_actual_return DATETIME,
@@ -53,26 +53,25 @@ CREATE TABLE rug_trials(
     CONSTRAINT actual_return_after_purchase_trial CHECK (rug_trial_actual_return > rug_trial_date),
     CONSTRAINT expected_return_after_purchase_trial CHECK (rug_trial_expected_return > rug_trial_date),
     FOREIGN KEY(rug_number) REFERENCES rugs(rug_number) ON DELETE RESTRICT,
-    FOREIGN KEY(customer_id) REFERENCES customers(customer_id) ON DELETE SET DEFAULT,
+    FOREIGN KEY(customer_id) REFERENCES customers(customer_id) ON DELETE RESTRICT,
     PRIMARY KEY(rug_number, customer_id, rug_trial_date) 
 );
 
---Add a trigger in orderto prevent customers from having more than 4 active trials at once
+--Add a trigger in order to prevent customers from having more than 4 active trials at once
 DELIMITER //
 CREATE TRIGGER constrain_max_trials
 BEFORE INSERT ON rug_trials
 FOR EACH ROW
 BEGIN
     DECLARE current_trial_count INT;
-    SELECT COUNT(*) INTO current_trial_count
-    FROM rug_trials
-    WHERE customer_id = NEW.customer_id AND rug_trial_actual_return IS NULL AND (rug_trial_purchased IS FALSE OR rug_trial_purchased IS NULL);
+     SELECT COUNT(*) INTO current_trial_count
+       FROM rug_trials
+            WHERE customer_id = NEW.customer_id AND rug_trial_actual_return IS NULL AND (rug_trial_purchased IS FALSE OR rug_trial_purchased IS NULL);
 
     IF current_trial_count >= 4 THEN
         SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'A customer may not have more than 4 active trials';
     END IF;
 END//
-
 DELIMITER ;
 
 --Create the rug_sales table, which references both the rugs and customers tables
@@ -106,9 +105,22 @@ BEGIN
         WHERE customer_id = NEW.customer_id AND rug_number = NEW.rug_number AND rug_trial_actual_return IS NULL AND rug_trial_date < NEW.rug_sale_date;
     END IF;
 END//
-
 DELIMITER ;
 
+--Add a trigger to enforce set default deletion rule
+DELIMITER //
+CREATE TRIGGER deletion_default
+BEFORE DELETE ON customers
+FOR EACH ROW
+BEGIN
+    UPDATE rug_trials
+    SET customer_id = 1
+    WHERE OLD.customer_id = customer_id;
+    UPDATE rug_sales
+    SET customer_id = 1
+    WHERE OLD.customer_id = customer_id;
+END//
+DELIMITER ;
 
 -- The next section inserts sample data in each table
 INSERT INTO rugs(rug_origin, rug_type, rug_year, rug_length, rug_width, rug_material, rug_purchase_price, rug_date_acquired, rug_markup, rug_list_price) VALUES
@@ -146,8 +158,9 @@ INSERT INTO rug_trials(customer_id, rug_number, rug_trial_date, rug_trial_expect
 ________
 This section is for testing purposes to ensure deletion rules, business rules, and the like are functioning as expected
 ________
-*/
 
+INSERT INTO rug_sales(customer_id, rug_number, rug_sale_date, rug_sale_price, rug_net_on_sale) VALUES
+    (2, 2, '2025/09/14', 990.00, 356.00);
 
 
 SELECT customer_first_name, customer_last_name, rug_sale_date,rug_sale_price, rug_origin, rug_material
@@ -162,10 +175,8 @@ FROM rug_trials
     INNER JOIN rugs USING(rug_number);
 
 --SELECT * FROM customers;
---DELETE FROM customers WHERE customer_id = 2;
+DELETE FROM customers WHERE customer_id = 2;
 --UPDATE customers SET customer_id=1 WHERE customer_id = 2;
-INSERT INTO rug_sales(customer_id, rug_number, rug_sale_date, rug_sale_price, rug_net_on_sale) VALUES
-    (2, 2, '2025/09/14', 990.00, 356.00);
 
 SELECT customer_first_name, customer_last_name, rug_sale_date,rug_sale_price, rug_origin, rug_material
 FROM rug_sales
@@ -177,3 +188,4 @@ SELECT customer_id, customer_first_name, customer_last_name, rug_trial_date, rug
 FROM rug_trials
     INNER JOIN customers USING(customer_id)
     INNER JOIN rugs USING(rug_number);
+*/
