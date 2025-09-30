@@ -7,7 +7,7 @@
 | Field Name            |  consumer_address                 |
 | Parent Table          |  consumer                         |
 | Alias(es)             |                                   |
-| Specification Type    | [ ] Unique                        |
+| Specification Type    | [X] Unique                        |
 |                       | [ ] Generic                       |
 |                       | [ ] Replica                       |
 |                       |                                   |
