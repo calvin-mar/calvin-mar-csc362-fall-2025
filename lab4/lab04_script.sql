@@ -15,17 +15,17 @@ USE flying_carpets;
 
 -- Create the rugs table, holding information about each rug
 CREATE TABLE rugs( 
-    rug_number INT NOT NULL AUTO_INCREMENT,
-    rug_origin CHAR(50),
-    rug_type CHAR(50),
-    rug_year YEAR,
-    rug_material CHAR(50),
-    rug_width INT,
-    rug_length INT,
-    rug_purchase_price DECIMAL(11,2),
-    rug_date_acquired DATETIME,
-    rug_markup DECIMAL(5,3),
-    rug_list_price DECIMAL(11,2),
+    rug_number          INT NOT NULL AUTO_INCREMENT,
+    rug_origin          CHAR(50),
+    rug_type            CHAR(50),
+    rug_year            YEAR,
+    rug_material        CHAR(50),
+    rug_width           INT,
+    rug_length          INT,
+    rug_purchase_price  DECIMAL(11,2),
+    rug_date_acquired   DATETIME,
+    rug_markup          DECIMAL(5,3),
+    rug_list_price      DECIMAL(11,2),
     PRIMARY KEY(rug_number)
 );
 
