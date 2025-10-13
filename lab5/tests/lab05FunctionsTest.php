@@ -1,0 +1,102 @@
+<?php
+
+include "src/lab05Functions.php";
+
+use PHPUnit\Framework\TestCase;
+
+class summarize_text_file_test extends TestCase 
+{
+    public function test_summarize_text_file() : void {
+        $result = summarize_text_file("test_file_1.txt");
+        $expected = ["there"=>4, "im"=>2, "not"=>1, "sure"=>1,"unsure"=>1,"i"=>1,"am"=>1];
+        $this->assertIsArray(
+            result,
+            "Expected an array, but received" . (string)gettype($result));
+        $this->assertEquals(
+            $expected, 
+            $result, 
+            "The text was $result, but should have been $expected.");
+    }
+}
+class make_multiplication_table_test extends TestCase 
+{
+    public function make_multiplication_table() : void {
+        $result = make_multiplication_table(1);
+        $expected = [[0]];
+        $this->assertEquals(
+            $expected, 
+            $result, 
+            "The array was $result, but should have been $expected.");
+
+        $result = make_multiplication_table(3);
+        $expected = [[0, 0, 0], [0, 1, 2], [0, 2, 4]];
+            $this->assertEquals(
+                $expected, 
+                $result, 
+                "The array was $result, but should have been $expected.");
+
+        $result = make_multiplication_table(8);
+        $expected = [[0,  0,  0,  0,  0,  0,  0, 0],
+                     [0,  1,  2,  3,  4,  5,  6, 7],
+                     [0,  2,  4,  6,  8,  10,  12, 14],
+                     [0,  3,  6,  9,  12,  15,  18, 21,],
+                     [0,  4,  8,  12,  16,  20,  24,  28],
+                     [0,  5,  10,  15,  20,  25,  30,  35],
+                     [0,  6,  12,  18,  24,  30,  36,  42],
+                     [0,  7,  14,  21,  28,  35,  42,  49]];
+        $this->assertEquals(
+            $expected, 
+            $result, 
+            "The array was $result, but should have been $expected.");
+    }
+}
+class pad_to_longest_test extends TestCase 
+{
+    public function pad_to_longest() : void {
+        $input = ["cat", "bird", "forthwith", "by"];
+        $result = pad_to_longest(input);
+        $expected = ["      cat", "     bird", "forthwith", "       by"];
+        $this->assertIsArray(
+            result,
+            "Expected an array, but received" . (string)gettype($result));
+        $this->assertEquals(
+            $expected, 
+            $result, 
+            "The text was $result, but should have been $expected.");
+
+        $input = ["by", "cat", "bird", "forthwith"];
+        $result = pad_to_longest(input);
+        $expected = ["       by", "      cat", "     bird", "forthwith"];
+         $this->assertIsArray(
+            result,
+            "Expected an array, but received" . (string)gettype($result));
+        $this->assertEquals(
+            $expected, 
+            $result, 
+            "The text was $result, but should have been $expected.");
+        
+        $input = ["forthwith", "by", "cat", "bird"];
+        $result = pad_to_longest(input);
+        $expected = ["forthwith", "       by", "      cat", "     bird"];
+         $this->assertIsArray(
+            result,
+            "Expected an array, but received" . (string)gettype($result));
+        $this->assertEquals(
+            $expected, 
+            $result, 
+            "The text was $result, but should have been $expected.");
+
+        $input = ["cat", "bird", "forthwith", "by"];
+        $result = pad_to_longest(input, false);
+        $expected = ["cat      ", "bird    ", "forthwith", "by       "];
+        $this->assertIsArray(
+            result,
+            "Expected an array, but received" . (string)gettype($result));
+        $this->assertEquals(
+            $expected, 
+            $result, 
+            "The text was $result, but should have been $expected.");
+    }
+}
+
+?>
