@@ -44,5 +44,29 @@ function pad_to_longest(array &$string_array, bool $do_pad_left=true){
             $string_array[$i] = str_pad($string_array[$i], $max_len, " ", STR_PAD_RIGHT);
         }
     }
-}
+};
+
 ?>
+
+<html>
+<table>
+<?php
+function format_result_as_table(mysqli_result $result): void {
+    $fields = $result->fetch_fields();
+    echo "<tr>";
+    for($i=0; $i<count($fields); $i++){
+       echo "<th>" . $fields[$i] . "</th>";
+    }
+    echo "</tr>";
+    while($row = $result->fetch_array()){
+        echo "<tr>";
+        for($i=0; $i<count($row); $i++){
+            echo "<th>" . $row[$i] . "</th>";
+        }
+        echo "</tr>";
+    }
+}
+
+?>
+</table>
+</html>

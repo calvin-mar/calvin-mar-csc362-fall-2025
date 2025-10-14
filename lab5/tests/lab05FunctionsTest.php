@@ -4,13 +4,13 @@ include "src/lab05Functions.php";
 
 use PHPUnit\Framework\TestCase;
 
-class summarize_text_file_test extends TestCase 
+class summarizeTextFileTest extends TestCase 
 {
     public function test_summarize_text_file() : void {
         $result = summarize_text_file("test_file_1.txt");
         $expected = ["there"=>4, "im"=>2, "not"=>1, "sure"=>1,"unsure"=>1,"i"=>1,"am"=>1];
         $this->assertIsArray(
-            result,
+            $result,
             "Expected an array, but received" . (string)gettype($result));
         $this->assertEquals(
             $expected, 
@@ -18,9 +18,9 @@ class summarize_text_file_test extends TestCase
             "The text was $result, but should have been $expected.");
     }
 }
-class make_multiplication_table_test extends TestCase 
+class makeMultiplicationTableTest extends TestCase 
 {
-    public function make_multiplication_table() : void {
+    public function test_make_multiplication_table() : void {
         $result = make_multiplication_table(1);
         $expected = [[0]];
         $this->assertEquals(
@@ -39,7 +39,7 @@ class make_multiplication_table_test extends TestCase
         $expected = [[0,  0,  0,  0,  0,  0,  0, 0],
                      [0,  1,  2,  3,  4,  5,  6, 7],
                      [0,  2,  4,  6,  8,  10,  12, 14],
-                     [0,  3,  6,  9,  12,  15,  18, 21,],
+                     [0,  3,  6,  9,  12,  15,  18, 21],
                      [0,  4,  8,  12,  16,  20,  24,  28],
                      [0,  5,  10,  15,  20,  25,  30,  35],
                      [0,  6,  12,  18,  24,  30,  36,  42],
@@ -50,47 +50,47 @@ class make_multiplication_table_test extends TestCase
             "The array was $result, but should have been $expected.");
     }
 }
-class pad_to_longest_test extends TestCase 
+class padToLongestTest extends TestCase 
 {
-    public function pad_to_longest() : void {
-        $input = ["cat", "bird", "forthwith", "by"];
-        $result = pad_to_longest(input);
+    public function test_pad_to_longest() : void {
+        $result = ["cat", "bird", "forthwith", "by"];
+        pad_to_longest($$result);
         $expected = ["      cat", "     bird", "forthwith", "       by"];
         $this->assertIsArray(
-            result,
+            $result,
             "Expected an array, but received" . (string)gettype($result));
         $this->assertEquals(
             $expected, 
             $result, 
             "The text was $result, but should have been $expected.");
 
-        $input = ["by", "cat", "bird", "forthwith"];
-        $result = pad_to_longest(input);
+        $result = ["by", "cat", "bird", "forthwith"];
+        pad_to_longest($result);
         $expected = ["       by", "      cat", "     bird", "forthwith"];
          $this->assertIsArray(
-            result,
+            $result,
             "Expected an array, but received" . (string)gettype($result));
         $this->assertEquals(
             $expected, 
             $result, 
             "The text was $result, but should have been $expected.");
         
-        $input = ["forthwith", "by", "cat", "bird"];
-        $result = pad_to_longest(input);
+        $result = ["forthwith", "by", "cat", "bird"];
+        pad_to_longest($result);
         $expected = ["forthwith", "       by", "      cat", "     bird"];
          $this->assertIsArray(
-            result,
+            $result,
             "Expected an array, but received" . (string)gettype($result));
         $this->assertEquals(
             $expected, 
             $result, 
             "The text was $result, but should have been $expected.");
 
-        $input = ["cat", "bird", "forthwith", "by"];
-        $result = pad_to_longest(input, false);
+        $result = ["cat", "bird", "forthwith", "by"];
+        pad_to_longest($result, false);
         $expected = ["cat      ", "bird    ", "forthwith", "by       "];
         $this->assertIsArray(
-            result,
+            $result,
             "Expected an array, but received" . (string)gettype($result));
         $this->assertEquals(
             $expected, 
