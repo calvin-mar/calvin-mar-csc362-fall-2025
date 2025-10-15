@@ -1,9 +1,12 @@
 <?php
 function summarize_text_file(string $text_file_name){
     $file_ar = [];
-    $fileobj = fopen($text_file_name, "r");
+    $fileobj = fopen($text_file_name, "r") or die("Unable to open file!");
+    $i=0;
     while(!feof($fileobj)) {
-        $line = $fgets.gets($fileobj);
+        echo (string)$i;
+        $i++;
+        $line = fgets($fileobj);
         $line = preg_replace('/[[:punct:]]/', '', strtolower($line));
         $line_ar = explode(" ", $line);
         foreach($line_ar as $word){
@@ -14,6 +17,7 @@ function summarize_text_file(string $text_file_name){
             }
         }
       }
+      fclose($fileobj);
       return $file_ar;
 };
 
@@ -21,7 +25,7 @@ function make_multiplication_table(int $size){
     $array = [];
     for($i=0; $i < $size; $i++){
         $line = [];
-        for($j=0; $j < $size; $J++){
+        for($j=0; $j < $size; $j++){
             $line[] = $i*$j;
         }
         $array[] = $line;
@@ -48,11 +52,14 @@ function pad_to_longest(array &$string_array, bool $do_pad_left=true){
 
 ?>
 
-<html>
-<table>
 <?php
+/*
+This appears to longer be a part of the lab, so I am commenting it out.
+
 function format_result_as_table(mysqli_result $result): void {
     $fields = $result->fetch_fields();
+    echo "<html>";
+    echo "<table>";
     echo "<tr>";
     for($i=0; $i<count($fields); $i++){
        echo "<th>" . $fields[$i] . "</th>";
@@ -65,8 +72,8 @@ function format_result_as_table(mysqli_result $result): void {
         }
         echo "</tr>";
     }
+    echo "</table>";
+    echo "</html>";
 }
-
+*/
 ?>
-</table>
-</html>
