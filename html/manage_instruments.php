@@ -55,9 +55,9 @@ $config = parse_ini_file('/home/calvinmar/mysqli.ini');
 
 
 $conn = new mysqli(
-    $config['mysqli.default_host'],
-    $config['mysqli.default_user'],
-    $config['mysqli.default_pw'],
+    $config['mysqli.personal_host'],
+    $config['mysqli.personal_user'],
+    $config['mysqli.personal_pw'],
     "instrument_rentals");
 
 if ($conn->connect_errno) {
