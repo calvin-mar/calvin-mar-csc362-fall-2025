@@ -13,7 +13,8 @@ class lab05FunctionsTest extends TestCase
     }   
 
     public function test_summarize_text_file1() : void {
-        $result = summarize_text_file("/home/calvinmar/calvin-mar-csc362-fall-2025/lab5/src/test_file_1.txt");
+        // $result = summarize_text_file("/home/calvinmar/calvin-mar-csc362-fall-2025/lab5/src/test_file_1.txt");
+        $result = summarize_text_file("lab5/src/test_file_1.txt");
         $expected = ["there"=>4, "im"=>2, "not"=>1, "sure"=>1,"unsure"=>1,"i"=>1,"am"=>1];
         $this->assertIsArray(
             $result,
